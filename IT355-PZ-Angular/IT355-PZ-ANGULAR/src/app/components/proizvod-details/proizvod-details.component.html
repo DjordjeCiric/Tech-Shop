@@ -1,0 +1,96 @@
+
+  <div *ngIf="proizvod" class="container mt-5">
+    <div class="row">
+      <div class="col-md-4">
+        <img src="{{ proizvod.proizvodImageUrl }}" class="img-fluid rounded shadow" alt="{{ proizvod.proizvodIme }}" />
+      </div>
+      <div class="col-md-6">
+        <ul class="list-group shadow-sm">
+          <li class="list-group-item">
+            <strong>Proizvodjac:</strong> {{ proizvod.proizvodjac.proizvodjacIme }}
+          </li>
+          <li class="list-group-item">
+            <strong>Ime:</strong> {{ proizvod.proizvodIme }}
+          </li>
+          <li class="list-group-item">
+            <strong>Tip:</strong> {{ proizvod.tip }}
+          </li>
+          <li class="list-group-item">
+            <strong>Cena:</strong> ${{ proizvod.cena }}
+          </li>
+          <li class="list-group-item">
+            <strong>Opis:</strong> {{ proizvod.opis }}
+          </li>
+        </ul>
+        <div *ngIf="!isAdmin" class="input-group mt-3">
+          <h5 class="me-2">Izaberi količinu</h5>
+          <input type="number" class="form-control text-center" [(ngModel)]="quantity" placeholder="Kolicina" />
+          <div *ngIf="isLoggedIn" class="input-group-append">
+            <button type="button" class="btn btn-primary ms-2" (click)="addToCart()">Dodaj u korpu</button>
+          </div>
+        </div>
+        <div *ngIf="isAdmin" class="mt-3">
+          <button (click)="editProizvod()" class="btn btn-warning">Azuriraj</button>
+          <button (click)="deleteProizvod(proizvod.id)" class="btn btn-danger ms-2">Izbrisi</button>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="isEditing" class="mt-5">
+      <h3>Azuriraj proizvod</h3>
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group mb-3">
+          <label for="title">Ime</label>
+          <input type="text" class="form-control" id="title" [(ngModel)]="editForm.proizvodIme" name="title" required />
+        </div>
+        <div class="form-group mb-3">
+          <label for="imageUrl">Slika</label>
+          <input type="text" class="form-control" id="imageUrl" [(ngModel)]="editForm.proizvodImageUrl" name="imageUrl" required />
+        </div>
+        <div class="form-group mb-3">
+          <label for="genre">Tip</label>
+          <input type="text" class="form-control" id="genre" [(ngModel)]="editForm.tip" name="genre" required />
+        </div>
+        <div class="form-group mb-3">
+          <label for="price">Cena</label>
+          <input type="number" class="form-control" id="price" [(ngModel)]="editForm.cena" name="price" required />
+        </div>
+        <div class="form-group mb-3">
+          <label for="year">Opis</label>
+          <input type="text" class="form-control" id="year" [(ngModel)]="editForm.opis" name="year" required />
+        </div>
+        <div class="form-group mb-3">
+          <label for="writer">Proizvodjac</label>
+          <select class="form-control" id="writer" [(ngModel)]="editForm.proizvodjac" name="writer" required>
+            <option *ngFor="let proizvodjac of proizvodjac" [ngValue]="proizvodjac">
+              {{ proizvodjac.proizvodjacIme }} {{ proizvodjac.opis }}
+            </option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Sacuvaj</button>
+      </form>
+    </div>
+  
+    <div *ngIf="recenzija.length > 0" class="mt-5">
+      <h3>Recenzije</h3>
+      <ul class="list-group shadow-sm">
+        <li *ngFor="let recenzija of recenzija" class="list-group-item">
+          <p>{{ recenzija.recenzija }}</p>
+          <small class="text-muted">- {{ recenzija.korisnik.korisnikIme }}</small>
+          <button *ngIf="canDeleteRecenziju(recenzija)" (click)="deleteRecenzija(recenzija.id)" class="btn btn-danger btn-sm float-end">Izbrisi</button>
+        </li>
+      </ul>
+    </div>
+  
+    <div *ngIf="isLoggedIn && !hasReviewed" class="mt-5">
+      <h3>Dodaj recenziju</h3>
+      <form (ngSubmit)="addRecenziju()">
+        <div class="form-group mb-3">
+          <label for="userReview">Recenzija</label>
+          <textarea class="form-control" id="userReview" [(ngModel)]="newRecenzija.recenzija" name="userReview" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Posalji</button>
+      </form>
+    </div>
+  </div>
+  

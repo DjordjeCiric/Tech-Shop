@@ -1,0 +1,33 @@
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4">Registracija</h2>
+            <form (ngSubmit)="onRegister()">
+              <div class="form-group mb-3">
+                <label for="email">Email:</label>
+                <input type="email" id="email" class="form-control" [(ngModel)]="korisnik.korisnikEmail" name="email" required placeholder="Unesite email">
+              </div>
+              <div class="form-group mb-3">
+                <label for="username">Ime:</label>
+                <input type="text" id="username" class="form-control" [(ngModel)]="korisnik.korisnikIme" name="username" required placeholder="Unesite ime">
+              </div>
+              <div class="form-group mb-3">
+                <label for="password">Sifra:</label>
+                <input type="password" id="password" class="form-control" [(ngModel)]="korisnik.korisnikSifra" name="password" required placeholder="Unesite sifru">
+              </div>
+              <div class="form-group mb-3">
+                <label for="confirm_password">Potvrdi sifru:</label>
+                <input type="password" id="confirm_password" class="form-control" [(ngModel)]="confirmPassword" name="confirm_password" required placeholder="Potvrdite sifru">
+              </div>
+              <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+              <button type="submit" class="btn btn-success btn-block mt-3">Registruj se</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

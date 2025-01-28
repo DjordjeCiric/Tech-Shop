@@ -1,0 +1,56 @@
+  <div class="container mt-4">
+    <h2 class="mb-3">Korisnici</h2>
+    <table class="table table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Ime</th>
+          <th>Email</th>
+          <th>Šifra</th>
+          <th>Admin</th>
+          <th>Ažuriraj</th>
+          <th>Izbriši</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let korisnik of korisnik">
+          <td>{{ korisnik.id }}</td>
+          <td>{{ korisnik.korisnikIme }}</td>
+          <td>{{ korisnik.korisnikEmail }}</td>
+          <td>{{ korisnik.korisnikSifra }}</td>
+          <td>{{ korisnik.admin }}</td>
+          <td>
+            <button (click)="updateKorisnik(korisnik.id)" class="btn btn-warning">Ažuriraj</button>
+          </td>
+          <td>
+            <button (click)="deleteKorisnik(korisnik.id)" class="btn btn-danger">Izbriši</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="selectedKorisnik" class="container mt-4 p-3 border rounded bg-light">
+      <h3>Ažuriraj korisnika</h3>
+      <form (submit)="submitUpdate()">
+        <div class="form-group mb-3">
+          <label for="username">Ime</label>
+          <input type="text" class="form-control" id="username" [(ngModel)]="selectedKorisnik.korisnikIme" name="username" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" [(ngModel)]="selectedKorisnik.korisnikEmail" name="email" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="password">Šifra</label>
+          <input type="password" class="form-control" id="password" [(ngModel)]="selectedKorisnik.korisnikSifra" name="password" required>
+        </div>
+        <div class="form-group mb-3">
+          <label for="admin">Admin</label>
+          <input type="number" class="form-control" id="admin" [(ngModel)]="selectedKorisnik.admin" name="admin" required>
+        </div>
+        <button type="submit" class="btn btn-success mt-2">Sačuvaj</button>
+        <button type="button" class="btn btn-secondary mt-2 ms-2" (click)="cancelUpdate()">Otkaži</button>
+      </form>
+    </div>
+  </div>
+  

@@ -1,0 +1,20 @@
+
+  <div class="container mt-5">
+    <div class="row">
+      <div *ngFor="let proizvod of proizvods" class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100">
+          <img src="{{ proizvod.proizvodImageUrl }}" class="card-img-top custom-image-card rounded-top" alt="{{ proizvod.proizvodIme }}">
+          <div class="card-body">
+            <h4 class="card-title text-center">{{ proizvod.proizvodIme }}</h4>
+            <p class="card-text"><strong>Tip:</strong> {{ proizvod.tip }}</p>
+            <p class="card-text"><strong>Proizvodjac:</strong> {{ proizvod.proizvodjac.proizvodjacIme }} {{ proizvod.proizvodjac.opis }}</p>
+            <p class="card-text"><strong>Cena:</strong> ${{ proizvod.cena }}</p>
+            <div *ngIf="isLoggedIn" class="text-center mt-3">
+              <a [routerLink]="['/proizvod', proizvod.id]" class="btn btn-primary">Vise detalja</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
